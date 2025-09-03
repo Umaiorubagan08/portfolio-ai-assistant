@@ -522,236 +522,213 @@
 
   <script>
     // ===== Utilities =====
-    const qs = (sel, el=document) => el.querySelector(sel);
-    const qsa = (sel, el=document) => [...el.querySelectorAll(sel)];
+const qs = (sel, el=document) => el.querySelector(sel);
+const qsa = (sel, el=document) => [...el.querySelectorAll(sel)];
 
-    // ===== Theme (system + saved) =====
-    const THEME_KEY = 'umai-theme';
-    const prefersLight = window.matchMedia('(prefers-color-scheme: light)');
-    const applyTheme = t => {
-      document.documentElement.setAttribute('data-theme', t);
-      qs('meta[name="theme-color"]').setAttribute('content', t==='light' ? '#ffffff' : '#0b0d10');
-      qs('#themeBtn i').className = t==='light' ? 'fa-solid fa-moon' : 'fa-solid fa-sun';
-      localStorage.setItem(THEME_KEY, t);
-    };
-    const savedTheme = localStorage.getItem(THEME_KEY);
-    applyTheme(savedTheme || (prefersLight.matches ? 'light' : 'dark'));
-    prefersLight.addEventListener('change', e => { if(!savedTheme) applyTheme(e.matches ? 'light' : 'dark'); });
-    qs('#themeBtn').addEventListener('click', () => applyTheme(document.documentElement.getAttribute('data-theme')==='light' ? 'dark' : 'light'));
+// ===== Theme (system + saved) =====
+const THEME_KEY = 'umai-theme';
+const prefersLight = window.matchMedia('(prefers-color-scheme: light)');
+const applyTheme = t => {
+  document.documentElement.setAttribute('data-theme', t);
+  qs('meta[name="theme-color"]').setAttribute('content', t==='light' ? '#ffffff' : '#0b0d10');
+  qs('#themeBtn i').className = t==='light' ? 'fa-solid fa-moon' : 'fa-solid fa-sun';
+  localStorage.setItem(THEME_KEY, t);
+};
+const savedTheme = localStorage.getItem(THEME_KEY);
+applyTheme(savedTheme || (prefersLight.matches ? 'light' : 'dark'));
+prefersLight.addEventListener('change', e => { if(!savedTheme) applyTheme(e.matches ? 'light' : 'dark'); });
+qs('#themeBtn').addEventListener('click', () => applyTheme(document.documentElement.getAttribute('data-theme')==='light' ? 'dark' : 'light'));
 
-    // ===== Mobile menu =====
-    qs('#menuBtn').addEventListener('click', () => {
-      const nav = qs('#navLinks');
-      nav.classList.toggle('open');
-      const open = nav.classList.contains('open');
-      qs('#menuBtn').setAttribute('aria-expanded', String(open));
-    });
-    qsa('.nav-links a').forEach(a=>a.addEventListener('click',()=>qs('#navLinks').classList.remove('open')));
+// ===== Mobile menu =====
+qs('#menuBtn').addEventListener('click', () => {
+  const nav = qs('#navLinks');
+  nav.classList.toggle('open');
+  const open = nav.classList.contains('open');
+  qs('#menuBtn').setAttribute('aria-expanded', String(open));
+});
+qsa('.nav-links a').forEach(a=>a.addEventListener('click',()=>qs('#navLinks').classList.remove('open')));
 
-    // ===== Scroll reveal =====
-    const io = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('show'); io.unobserve(e.target); } });
-    }, { threshold: 0.2 });
-    qsa('.reveal').forEach(el => io.observe(el));
+// ===== Scroll reveal =====
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('show'); io.unobserve(e.target); } });
+}, { threshold: 0.2 });
+qsa('.reveal').forEach(el => io.observe(el));
 
-    // ===== Scroll spy =====
-    const spy = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        const id = e.target.getAttribute('id');
-        const link = qs(`.nav-links a[href="#${id}"]`);
-        if (link) link.setAttribute('aria-current', e.isIntersecting ? 'true' : 'false');
-      });
-    }, { rootMargin: '-30% 0px -60% 0px' });
-    qsa('main section, header.hero').forEach(el => spy.observe(el));
+// ===== Scroll spy =====
+const spy = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    const id = e.target.getAttribute('id');
+    const link = qs(`.nav-links a[href="#${id}"]`);
+    if (link) link.setAttribute('aria-current', e.isIntersecting ? 'true' : 'false');
+  });
+}, { rootMargin: '-30% 0px -60% 0px' });
+qsa('main section, header.hero').forEach(el => spy.observe(el));
 
-    // ===== Scroll progress =====
-    const progress = qs('#progress');
-    const onScroll = () => {
-      const s = window.scrollY;
-      const h = document.documentElement.scrollHeight - window.innerHeight;
-      const p = Math.max(0, Math.min(1, s / h));
-      progress.style.transform = `scaleX(${p})`;
-    };
-    document.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
+// ===== Scroll progress =====
+const progress = qs('#progress');
+const onScroll = () => {
+  const s = window.scrollY;
+  const h = document.documentElement.scrollHeight - window.innerHeight;
+  const p = Math.max(0, Math.min(1, s / h));
+  progress.style.transform = `scaleX(${p})`;
+};
+document.addEventListener('scroll', onScroll, { passive: true });
+onScroll();
 
-    // ===== Copy email =====
-    qs('#copyEmail').addEventListener('click', async () => {
-      try {
-        await navigator.clipboard.writeText('umaiorubagan2002@gmail.com');
-        qs('#copyEmail').innerHTML = '<i class="fa-solid fa-check"></i>Copied';
-        setTimeout(()=> qs('#copyEmail').innerHTML = '<i class="fa-regular fa-copy"></i>Copy Email', 1200);
-      } catch(err) { alert('Could not copy.'); }
-    });
+// ===== Copy email =====
+qs('#copyEmail').addEventListener('click', async () => {
+  try {
+    await navigator.clipboard.writeText('umaiorubagan2002@gmail.com');
+    qs('#copyEmail').innerHTML = '<i class="fa-solid fa-check"></i>Copied';
+    setTimeout(()=> qs('#copyEmail').innerHTML = '<i class="fa-regular fa-copy"></i>Copy Email', 1200);
+  } catch(err) { alert('Could not copy.'); }
+});
 
-    // ===== Resume (placeholder) =====
-    // If you have a PDF, place it in the same folder and set the href:
-    // qs('#downloadResume').setAttribute('href', './UmaiorubaganV_Resume.pdf');
+// ===== Resume (placeholder) =====
+// If you have a PDF, place it in the same folder and set the href:
+// qs('#downloadResume').setAttribute('href', './UmaiorubaganV_Resume.pdf');
 
-    // ===== Project filter =====
-    const setFilter = (tag) => {
-      qsa('.filter-btn').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.filter===tag)));
-      qsa('.project-card').forEach(card => {
-        const show = tag==='all' || card.dataset.tags.includes(tag);
-        card.style.display = show ? '' : 'none';
-      });
-    };
-    qsa('.filter-btn').forEach(b => b.addEventListener('click', () => setFilter(b.dataset.filter)));
+// ===== Project filter =====
+const setFilter = (tag) => {
+  qsa('.filter-btn').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.filter===tag)));
+  qsa('.project-card').forEach(card => {
+    const show = tag==='all' || card.dataset.tags.includes(tag);
+    card.style.display = show ? '' : 'none';
+  });
+};
+qsa('.filter-btn').forEach(b => b.addEventListener('click', () => setFilter(b.dataset.filter)));
 
-    // ===== Contact form (mailto) =====
-    qs('#contactForm').addEventListener('submit', (e) => {
-      e.preventDefault();
-      const data = new FormData(e.currentTarget);
-      const email = data.get('email');
-      const message = data.get('message');
-      const mailto = `mailto:umaiorubagan2002@gmail.com?subject=Portfolio%20Contact%20from%20${encodeURIComponent(email)}&body=${encodeURIComponent(message)}`;
-      window.location.href = mailto;
-      qs('#formStatus').textContent = 'Opening your email app…';
-    });
+// ===== Contact form (mailto) =====
+qs('#contactForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const data = new FormData(e.currentTarget);
+  const email = data.get('email');
+  const message = data.get('message');
+  const mailto = `mailto:umaiorubagan2002@gmail.com?subject=Portfolio%20Contact%20from%20${encodeURIComponent(email)}&body=${encodeURIComponent(message)}`;
+  window.location.href = mailto;
+  qs('#formStatus').textContent = 'Opening your email app…';
+});
 
-    // ===== Year =====
-    qs('#year').textContent = new Date().getFullYear();
+// ===== Year =====
+qs('#year').textContent = new Date().getFullYear();
 
-    // ===== AI Assistant (Gemini) =====
-    const GEMINI_ENDPOINT = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent';
+// ===== AI Assistant (Gemini) - CORRECTED SECTION =====
+// The GEMINI_ENDPOINT and API key logic are now handled by the serverless function.
+// We remove them from the client-side code for security.
 
-    const assistantEl = qs('#assistant');
-    const assistantToggle = qs('#assistantToggle');
-    const assistantClose = qs('#assistantClose');
-    const assistantSetKey = qs('#assistantSetKey');
-    const assistantClear = qs('#assistantClear');
-    const assistantForm = qs('#assistantForm');
-    const assistantPrompt = qs('#assistantPrompt');
-    const assistantMessages = qs('#assistantMessages');
+const assistantEl = qs('#assistant');
+const assistantToggle = qs('#assistantToggle');
+const assistantClose = qs('#assistantClose');
+const assistantSetKey = qs('#assistantSetKey');
+const assistantClear = qs('#assistantClear');
+const assistantForm = qs('#assistantForm');
+const assistantPrompt = qs('#assistantPrompt');
+const assistantMessages = qs('#assistantMessages');
 
-    let chatHistory = []; // for multi-turn context with Gemini
+let chatHistory = []; // for multi-turn context with Gemini
 
-    const getApiKey = async () => {
-      let key = localStorage.getItem('GEMINI_API_KEY');
-      if (!key) {
-        key = prompt('Enter your Gemini API key (stored locally)');
-        if (key) localStorage.setItem('GEMINI_API_KEY', key.trim());
-      }
-      return key?.trim();
-    };
+const toggleAssistant = (open) => {
+  const isOpen = open ?? !assistantEl.classList.contains('open');
+  assistantEl.classList.toggle('open', isOpen);
+  assistantToggle.setAttribute('aria-expanded', String(isOpen));
+  if (isOpen) assistantPrompt.focus();
+};
 
-    const setApiKey = async () => {
-      const input = prompt('Set / replace your Gemini API key');
-      if (input) localStorage.setItem('GEMINI_API_KEY', input.trim());
-    };
+assistantToggle.addEventListener('click', () => toggleAssistant());
+assistantClose.addEventListener('click', () => toggleAssistant(false));
+// The API key button is no longer needed on the front end.
+assistantSetKey.style.display = 'none'; 
+assistantClear.addEventListener('click', () => { chatHistory = []; assistantMessages.innerHTML = ''; });
 
-    const toggleAssistant = (open) => {
-      const isOpen = open ?? !assistantEl.classList.contains('open');
-      assistantEl.classList.toggle('open', isOpen);
-      assistantToggle.setAttribute('aria-expanded', String(isOpen));
-      if (isOpen) assistantPrompt.focus();
-    };
+const elFromHTML = (html) => {
+  const t = document.createElement('template');
+  t.innerHTML = html.trim();
+  return t.content.firstElementChild;
+};
 
-    assistantToggle.addEventListener('click', () => toggleAssistant());
-    assistantClose.addEventListener('click', () => toggleAssistant(false));
-    assistantSetKey.addEventListener('click', setApiKey);
-    assistantClear.addEventListener('click', () => { chatHistory = []; assistantMessages.innerHTML = ''; });
+const pushMessage = (role, text) => {
+  const icon = role === 'user' ? '<i class="fa-solid fa-user"></i>' : '<i class="fa-solid fa-robot"></i>';
+  const el = elFromHTML(`<div class="msg ${role}"><small>${icon} ${role === 'user' ? 'You' : 'Assistant'}</small><div>${text.replace(/\n/g,'<br>')}</div></div>`);
+  assistantMessages.appendChild(el);
+  assistantMessages.scrollTop = assistantMessages.scrollHeight;
+};
 
-    const elFromHTML = (html) => {
-      const t = document.createElement('template');
-      t.innerHTML = html.trim();
-      return t.content.firstElementChild;
-    };
-
-    const pushMessage = (role, text) => {
-      const icon = role === 'user' ? '<i class="fa-solid fa-user"></i>' : '<i class="fa-solid fa-robot"></i>';
-      const el = elFromHTML(`<div class="msg ${role}"><small>${icon} ${role === 'user' ? 'You' : 'Assistant'}</small><div>${text.replace(/\n/g,'<br>')}</div></div>`);
-      assistantMessages.appendChild(el);
-      assistantMessages.scrollTop = assistantMessages.scrollHeight;
-    };
-
-    const collectPortfolioContext = () => {
-      // Grab clean text from key sections to ground answers
-      const pick = (sel) => (qs(sel)?.innerText || '').replace(/\s+\n/g,'\n').replace(/[\t ]+/g,' ').trim();
-      const extractProjects = () => {
-        return qsa('.project-card').map(card => ({
-          title: card.querySelector('h3')?.innerText?.trim(),
-          tags: card.dataset.tags,
-          summary: card.querySelector('p')?.innerText?.trim(),
-          links: qsa('a', card).map(a => ({text:a.innerText.trim(), href:a.href}))
-        }));
-      };
-      const data = {
-        name: 'Umaiorubagan V',
-        headline: pick('.headline p'),
-        focus: qsa('.chips .chip').map(x=>x.innerText.trim()),
-        contacts: qsa('.contact-row a').map(a => ({text:a.innerText.trim(), href:a.href})),
-        education: pick('#education .card'),
-        experience: pick('#experience .card'),
-        skills: qsa('#skills .skill-badges .skill').map(s=>s.innerText.trim()),
-        projects: extractProjects(),
-        certificates: pick('#certs .card'),
-        tools: pick('#contact .item:nth-child(2) .muted'),
-        languages: 'English, Tamil'
-      };
-      let text = `You are an AI assistant for the portfolio website of ${data.name}.
+const collectPortfolioContext = () => {
+  const pick = (sel) => (qs(sel)?.innerText || '').replace(/\s+\n/g,'\n').replace(/[\t ]+/g,' ').trim();
+  const extractProjects = () => {
+    return qsa('.project-card').map(card => ({
+      title: card.querySelector('h3')?.innerText?.trim(),
+      tags: card.dataset.tags,
+      summary: card.querySelector('p')?.innerText?.trim(),
+      links: qsa('a', card).map(a => ({text:a.innerText.trim(), href:a.href}))
+    }));
+  };
+  const data = {
+    name: 'Umaiorubagan V',
+    headline: pick('.headline p'),
+    focus: qsa('.chips .chip').map(x=>x.innerText.trim()),
+    contacts: qsa('.contact-row a').map(a => ({text:a.innerText.trim(), href:a.href})),
+    education: pick('#education .card'),
+    experience: pick('#experience .card'),
+    skills: qsa('#skills .skill-badges .skill').map(s=>s.innerText.trim()),
+    projects: extractProjects(),
+    certificates: pick('#certs .card'),
+    tools: pick('#contact .item:nth-child(2) .muted'),
+    languages: 'English, Tamil'
+  };
+  let text = `You are an AI assistant for the portfolio website of ${data.name}.
 Only use the following on-page context to answer. If something is not in the context, say you don't have that information on this page.
 Be concise, friendly, and factual. When helpful, point to a relevant section name (e.g., “see Projects”).\n\n=== CONTEXT START ===\n`;
-      text += JSON.stringify(data, null, 2);
-      text += `\n=== CONTEXT END ===`;
-      return text;
-    };
+  text += JSON.stringify(data, null, 2);
+  text += `\n=== CONTEXT END ===`;
+  return text;
+};
 
-    const askGemini = async (prompt) => {
-      const apiKey = await getApiKey();
-      if (!apiKey) throw new Error('Missing API key. Click the key icon to set it.');
+// This is the correct, updated askGemini function.
+// It sends the request to your serverless function on Vercel.
+const askGemini = async (prompt) => {
+  const context = collectPortfolioContext();
 
-      const context = collectPortfolioContext();
+  const thinking = elFromHTML('<div class="msg bot"><small><i class="fa-solid fa-robot"></i> Assistant</small><div>Thinking…</div></div>');
+  assistantMessages.appendChild(thinking);
+  assistantMessages.scrollTop = assistantMessages.scrollHeight;
 
-      // Build request contents with history
-      const contents = [];
-      // Re-inject grounding context each turn so answers remain on-page
-      contents.push({ role: 'user', parts: [{ text: context }] });
-      for (const h of chatHistory) contents.push(h);
-      contents.push({ role: 'user', parts: [{ text: prompt }] });
-
-      const res = await fetch(`${GEMINI_ENDPOINT}?key=${encodeURIComponent(apiKey)}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ contents })
-      });
-
-      if (!res.ok) {
-        const errText = await res.text();
-        throw new Error(`Gemini error ${res.status}: ${errText}`);
-      }
-
-      const data = await res.json();
-      const text = data?.candidates?.[0]?.content?.parts?.map(p=>p.text).join('\n').trim();
-      if (!text) throw new Error('No response from model.');
-      // Save last turn into history as model reply
-      chatHistory.push({ role: 'user', parts: [{ text: prompt }] });
-      chatHistory.push({ role: 'model', parts: [{ text }] });
-      return text;
-    };
-
-    assistantForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const prompt = assistantPrompt.value.trim();
-      if (!prompt) return;
-      assistantPrompt.value = '';
-      pushMessage('user', prompt);
-      const thinking = elFromHTML('<div class="msg bot"><small><i class="fa-solid fa-robot"></i> Assistant</small><div>Thinking…</div></div>');
-      assistantMessages.appendChild(thinking);
-      assistantMessages.scrollTop = assistantMessages.scrollHeight;
-      try {
-        const reply = await askGemini(prompt);
-        thinking.remove();
-        pushMessage('bot', reply);
-      } catch (err) {
-        thinking.remove();
-        pushMessage('bot', (err?.message || 'Something went wrong. Please try again.'));
-      }
+  try {
+    const res = await fetch('/api/ask', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ prompt, chatHistory, context })
     });
 
-    // Open assistant with a helpful intro message
-    const intro = `Hi! I can answer questions about Umaiorubagan's skills, projects, experience and contact info — all grounded in this page. Try: \n• What projects has Umaiorubagan built?\n• What are the main technical skills?\n• How can I reach out?`;
-    pushMessage('bot', intro);
+    if (!res.ok) {
+      const errorText = await res.text();
+      throw new Error(`Server error: ${res.status} - ${errorText}`);
+    }
+
+    const data = await res.json();
+    thinking.remove();
+    pushMessage('bot', data.reply);
+    // Save last turn into history as model reply
+    chatHistory.push({ role: 'user', parts: [{ text: prompt }] });
+    chatHistory.push({ role: 'model', parts: [{ text: data.reply }] });
+  } catch (err) {
+    thinking.remove();
+    pushMessage('bot', (err?.message || 'Something went wrong. Please try again.'));
+  }
+};
+
+assistantForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const prompt = assistantPrompt.value.trim();
+  if (!prompt) return;
+  assistantPrompt.value = '';
+  pushMessage('user', prompt);
+  await askGemini(prompt);
+});
+
+// Open assistant with a helpful intro message
+const intro = `Hi! I can answer questions about Umaiorubagan's skills, projects, experience and contact info — all grounded in this page. Try: \n• What projects has Umaiorubagan built?\n• What are the main technical skills?\n• How can I reach out?`;
+pushMessage('bot', intro);
   </script>
 </body>
 </html>
