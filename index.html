@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Umaiorubagan V | Portfolio</title>
+  <meta name="description" content="Portfolio of Umaiorubagan V — Frontend developer, AI enthusiast, and presentation designer. Projects, skills, experience, and contact." />
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:title" content="Umaiorubagan V — Portfolio" />
+  <meta property="og:description" content="Frontend developer • AI & SLM • Presentation designer" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="profile-pic (2).png" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
+  <meta name="theme-color" content="#0b0d10" />
+
+  <style>
+    :root {
+      --bg: #0b0d10;
+      --surface: #10141b;
+      --text: #e8eef6;
+      --muted: #9fb1c1;
+      --brand: #dc143c; /* crimson */
+      --brand-2: #7f5af0;
+      --card: rgba(255,255,255,0.04);
+      --stroke: rgba(255,255,255,0.08);
+      --shadow: 0 10px 30px rgba(2, 6, 23, 0.45);
+      --radius: 18px;
+      --radius-lg: 26px;
+      --space-1: 8px;
+      --space-2: 12px;
+      --space-3: 16px;
+      --space-4: 20px;
+      --space-5: 28px;
+      --space-6: 36px;
+      --container: 1200px;
+      --nav-h: 64px;
+    }
+    /* Light theme */
+    [data-theme="light"] {
+      --bg: #edf2fc;
+      --surface: #ffffff;
+      --text: #10141b;
+      --muted: #3c4753;
+      --brand: #dc143c;
+      --brand-2: #5b2be0;
+      --card: rgba(16,20,27,0.04);
+      --stroke: rgba(16,20,27,0.08);
+      --shadow: 0 10px 30px rgba(16,20,27,0.1);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, 'Exo 2', Arial, sans-serif;
+      color: var(--text);
+      background: radial-gradient(1200px 1200px at 80% -10%, rgba(127,90,240,0.18), transparent 60%),
+                  radial-gradient(1000px 1000px at -10% 20%, rgba(220,20,60,0.18), transparent 60%),
+                  var(--bg);
+      min-height: 100dvh;
+      line-height: 1.6;
+    }
+
+    /* Helpers */
+    .container { max-width: var(--container); margin-inline: auto; padding-inline: clamp(16px, 3vw, 24px); }
+    section { scroll-margin-top: calc(var(--nav-h) + 12px); }
+    .stack { display: grid; gap: var(--space-3); }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+    /* ======= Top Nav ======= */
+    .skip-link { position: absolute; left: -9999px; top: auto; width: 1px; height: 1px; overflow: hidden; }
+    .skip-link:focus { left: 12px; top: 12px; width: auto; height: auto; background: var(--surface); color: var(--text); padding: 8px 12px; border-radius: 8px; z-index: 1001; }
+
+    .nav { position: sticky; top: 0; z-index: 1000; backdrop-filter: saturate(140%) blur(10px); background: linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.0)); border-bottom: 1px solid var(--stroke); height: var(--nav-h); display: flex; align-items: center; }
+    .nav-wrap { max-width: var(--container); margin: 0 auto; padding: 10px 18px; display: grid; grid-template-columns: 1fr auto auto; align-items: center; gap: 12px; width: 100%; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: .6px; }
+    .brand i { color: var(--brand); }
+
+    .nav-links { display: flex; gap: 8px; align-items: center; justify-content: center; }
+    .nav-links a { padding: 8px 12px; border-radius: 999px; text-decoration: none; color: var(--text); opacity: .85; border: 1px solid transparent; font-size: 14px; }
+    .nav-links a:hover, .nav-links a[aria-current="true"] { border-color: var(--stroke); opacity: 1; }
+
+    .theme-btn, .menu-btn {
+      background: var(--surface); border: 1px solid var(--stroke); border-radius: 999px; padding: 8px 12px; color: var(--text);
+      cursor: pointer; display: inline-flex; align-items: center; gap: 8px; box-shadow: var(--shadow);
+    }
+    .menu-btn { display: none; }
+
+    /* ======= Hero/Profile ======= */
+    .hero { margin-top: clamp(16px, 3vw, 28px); }
+    .hero-grid { display: grid; grid-template-columns: 180px 1fr; gap: clamp(16px, 3vw, 24px); align-items: center; }
+    .avatar { width: 180px; height: 180px; border-radius: 50%; border: 4px solid var(--brand); overflow: hidden; background: var(--surface); box-shadow: var(--shadow); }
+    .avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    .headline { padding: 18px; background: var(--surface); border: 1px solid var(--stroke); border-radius: var(--radius-lg); box-shadow: var(--shadow); }
+    .headline h1 { margin: 0 0 8px; font-family: 'Exo 2', Poppins, sans-serif; font-weight: 700; letter-spacing: 1px; }
+    .headline p { margin: 0 0 12px; color: var(--muted); line-height: 1.7; }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 0; }
+    .chip { background: linear-gradient(180deg, rgba(127,90,240,0.2), rgba(127,90,240,0.05)); border: 1px solid var(--stroke); padding: 6px 10px; border-radius: 999px; font-size: 12px; }
+
+    .contact-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 14px; }
+    .contact-row a, .contact-row button { text-decoration: none; color: var(--text); border: 1px solid var(--stroke); background: var(--surface); padding: 10px 14px; border-radius: 12px; display: inline-flex; align-items: center; gap: 8px; box-shadow: var(--shadow); }
+    .contact-row a:hover { outline: 1px solid var(--brand); }
+
+    /* ======= Sections ======= */
+    main > section { margin-block: clamp(28px, 5vw, 48px); }
+    .card { background: var(--surface); border: 1px solid var(--stroke); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
+    .section-head { display: flex; align-items: center; justify-content: space-between; padding: 18px 18px 0; }
+    .section-head h2 { font-family: 'Exo 2', Poppins, sans-serif; letter-spacing: 1px; margin: 0; }
+
+    .grid { display: grid; gap: 14px; padding: 10px 18px 18px; }
+    .education .item, .experience .item, .projects .item, .skills .item, .softskills .item, .tools .item { padding: 14px 0; border-top: 1px dashed var(--stroke); }
+    .education .item:first-child, .experience .item:first-child, .projects .item:first-child, .skills .item:first-child, .softskills .item:first-child, .tools .item:first-child { border-top: none; }
+
+    .muted { color: var(--muted); }
+    .pill { display: inline-block; border: 1px solid var(--stroke); padding: 6px 10px; border-radius: 999px; margin: 4px 6px 0 0; font-size: 13px; }
+
+    /* Skills layout */
+    .skill-badges { display: flex; flex-wrap: wrap; gap: 10px; }
+    .skill { padding: 8px 12px; border-radius: 999px; border: 1px solid var(--stroke); background: linear-gradient(180deg, rgba(220,20,60,0.15), rgba(220,20,60,0.04)); }
+
+    /* Projects */
+    .filter { display: flex; flex-wrap: wrap; gap: 8px; padding: 0 18px 12px; }
+    .filter button { cursor: pointer; border: 1px solid var(--stroke); background: var(--surface); color: var(--text); padding: 8px 12px; border-radius: 999px; }
+    .filter button[aria-pressed="true"] { outline: 2px solid var(--brand); }
+
+    .project-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; padding: 0 18px 18px; }
+    .project-card { grid-column: span 6; background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border: 1px solid var(--stroke); border-radius: 16px; overflow: hidden; position: relative; transition: transform .2s ease, box-shadow .2s ease; }
+    .project-card:hover { transform: translateY(-2px); box-shadow: 0 18px 40px rgba(0,0,0,0.25); }
+    .project-thumb { aspect-ratio: 16/9; background: #111; overflow: hidden; }
+    .project-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; filter: saturate(1.1); }
+    .project-body { padding: 12px 14px 16px; }
+    .project-body h3 { margin: 6px 0 8px; font-size: 1.05rem; }
+    .project-body p { margin: 0 0 10px; color: var(--muted); }
+    .project-links { display: flex; flex-wrap: wrap; gap: 10px; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 10px; border: 1px solid var(--stroke); background: var(--surface); color: var(--text); text-decoration: none; }
+    .btn:hover { outline: 1px solid var(--brand); }
+
+    /* Footer */
+    footer { color: var(--muted); text-align: center; padding: 24px 0 60px; border-top: 1px solid var(--stroke); }
+
+    /* Utilities */
+    .reveal { opacity: 0; transform: translateY(24px); transition: all .6s cubic-bezier(.23,1.02,.64,1); }
+    .reveal.show { opacity: 1; transform: none; }
+
+    /* Progress bar */
+    .progress { position: fixed; inset: 0 0 auto 0; height: 3px; background: linear-gradient(90deg, var(--brand), var(--brand-2)); transform-origin: 0 50%; transform: scaleX(0); z-index: 1200; }
+
+    /* Assistant (Gemini) */
+    .assistant-toggle { position: fixed; right: 22px; bottom: 22px; z-index: 1201; display: inline-flex; align-items: center; justify-content: center; width: 56px; height: 56px; border-radius: 50%; border: 1px solid var(--stroke); background: var(--surface); box-shadow: var(--shadow); cursor: pointer; }
+    .assistant-panel { position: fixed; right: 22px; bottom: 90px; width: min(420px, 92vw); height: min(75vh, 640px); display: none; flex-direction: column; background: var(--surface); border: 1px solid var(--stroke); border-radius: 18px; box-shadow: var(--shadow); z-index: 1202; }
+    .assistant-panel.open { display: flex; }
+    .assistant-header { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 12px; border-bottom: 1px solid var(--stroke); }
+    .assistant-header h3 { margin: 0; font-size: 16px; }
+    .assistant-actions { display: flex; gap: 8px; }
+    .assistant-actions button { border: 1px solid var(--stroke); background: var(--surface); color: var(--text); border-radius: 10px; padding: 6px 10px; cursor: pointer; }
+    .assistant-messages { flex: 1; overflow: auto; padding: 12px; display: grid; gap: 10px; }
+    .assistant-input { border-top: 1px solid var(--stroke); padding: 10px; display: grid; grid-template-columns: 1fr auto; gap: 8px; }
+    .assistant-input textarea { resize: none; min-height: 46px; max-height: 160px; border-radius: 12px; border: 1px solid var(--stroke); background: var(--card); color: var(--text); padding: 10px 12px; font-family: inherit; }
+    .assistant-input button { border: 1px solid var(--stroke); background: var(--surface); color: var(--text); border-radius: 12px; padding: 10px 14px; cursor: pointer; }
+    .msg { display: grid; gap: 6px; padding: 10px 12px; border: 1px solid var(--stroke); border-radius: 14px; background: rgba(255,255,255,0.02); }
+    .msg.user { background: linear-gradient(180deg, rgba(220,20,60,0.12), rgba(220,20,60,0.04)); justify-self: end; max-width: 85%; }
+    .msg.bot { background: linear-gradient(180deg, rgba(127,90,240,0.12), rgba(127,90,240,0.04)); justify-self: start; max-width: 95%; }
+    .msg small { color: var(--muted); }
+
+    /* Responsive */
+    @media (max-width: 1000px) {
+      .project-card { grid-column: span 12; }
+      .hero-grid { grid-template-columns: 140px 1fr; }
+      .avatar { width: 140px; height: 140px; }
+    }
+    @media (max-width: 720px) {
+      .menu-btn { display: inline-flex; }
+      .nav-links { display: none; position: absolute; top: 58px; right: 12px; background: var(--surface); border: 1px solid var(--stroke); border-radius: 12px; padding: 10px; box-shadow: var(--shadow); flex-direction: column; }
+      .nav-links.open { display: flex; }
+      .hero-grid { grid-template-columns: 1fr; }
+      .avatar { justify-self: start; }
+      .assistant-panel { right: 16px; left: 16px; width: auto; }
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { transition: none; }
+      html { scroll-behavior: auto; }
+    }
+
+    /* Print (easy resume export) */
+    @media print {
+      .nav, .menu-btn, .theme-btn, .filter, .contact-row .btn, .btn.top, .assistant-toggle, .assistant-panel, .progress { display:none !important; }
+      body { background: white; color: black; }
+      .card, .headline { box-shadow:none; border: none; }
+      section { break-inside: avoid; }
+    }
+
+    /* Focus ring */
+    :focus-visible { outline: 2px dashed var(--brand-2); outline-offset: 2px; }
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+  <div class="progress" id="progress"></div>
+
+  <nav class="nav" aria-label="Primary">
+    <div class="nav-wrap">
+      <div class="brand" aria-label="Site home">
+        <i class="fa-solid fa-code"></i>
+        <span>Umaiorubagan V</span>
+      </div>
+      <div class="nav-links" id="navLinks">
+        <a href="#about" data-spy>About</a>
+        <a href="#education" data-spy>Education</a>
+        <a href="#experience" data-spy>Experience</a>
+        <a href="#skills" data-spy>Skills</a>
+        <a href="#projects" data-spy>Projects</a>
+        <a href="#certs" data-spy>Certificates</a>
+        <a href="#contact" data-spy>Contact</a>
+      </div>
+      <div style="display:flex; gap:10px; align-items:center; justify-self:end">
+        <button class="theme-btn" id="themeBtn" aria-label="Toggle theme"><i class="fa-solid fa-moon"></i><span class="sr-only">Toggle theme</span></button>
+        <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="navLinks"><i class="fa-solid fa-bars"></i></button>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero container" id="about">
+    <div class="hero-grid">
+      <div class="avatar reveal"><img src="./profile-pic(1)-transformed(1).png" alt="Portrait of Umaiorubagan V" loading="lazy" /></div>
+      <div class="headline reveal">
+        <h1>UMAIORUBAGAN V</h1>
+        <p>
+          Recent Electronics and Communication Engineering graduate with a strong interest in software development, Artificial Intelligence, and web development. Passionate about learning new technologies and contributing to user‑focused solutions. Eager to start a career collaborating with technical teams and delivering efficient, reliable solutions.
+        </p>
+        <div class="chips" aria-label="Focus areas">
+          <span class="chip">AI / SLM</span>
+          <span class="chip">Frontend Dev</span>
+          <span class="chip">Embedded Systems</span>
+          <span class="chip">UI/UX</span>
+          <span class="chip">Manual Testing</span>
+          <span class="chip">MS Office</span>
+        </div>
+        <div class="contact-row" role="group" aria-label="Contacts">
+          <a class="btn" href="mailto:umaiorubagan2002@gmail.com"><i class="fa-solid fa-envelope"></i>Email</a>
+          <a class="btn" href="https://www.linkedin.com/in/umaiorubagan-v/" target="_blank" rel="noopener"><i class="fa-brands fa-linkedin"></i>LinkedIn</a>
+          <a class="btn" href="https://github.com/Umaiorubagan08" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i>GitHub</a>
+          <a class="btn" href="https://byte-stories.blogspot.com/" target="_blank" rel="noopener"><i class="fa-brands fa-blogger"></i>Blog</a>
+          <button class="btn" id="copyEmail"><i class="fa-regular fa-copy"></i>Copy Email</button>
+          <a class="btn" href="./Umaiorubagan_V_Resume_01_AI_25-1.pdf" id="downloadResume" download><i class="fa-solid fa-file-arrow-down"></i>Resume</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- Education -->
+    <section id="education" class="reveal container">
+      <div class="card education">
+        <div class="section-head"><h2>EDUCATION</h2></div>
+        <div class="grid">
+          <div class="item">
+            <h3>ANNA UNIVERSITY</h3>
+            <p>Bachelor of Engineering in Electronics and Communication Engineering</p>
+            <p class="muted">CGPA: 8.17 | 2020 – 2024</p>
+          </div>
+          <div class="item">
+            <h3>CLASS XII</h3>
+            <p>SDA Matriculation Higher Secondary School, Dindigul, India</p>
+            <p class="muted">Score: 63.16% | 2019 – 2020</p>
+          </div>
+          <div class="item">
+            <h3>CLASS X</h3>
+            <p>SDA Matriculation Higher Secondary School, Dindigul, India</p>
+            <p class="muted">Score: 73% | 2018 – 2019</p>
+          </div>
+          <div class="item"><strong>Languages:</strong> English, Tamil</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience -->
+    <section id="experience" class="reveal container">
+      <div class="card experience">
+        <div class="section-head"><h2>INTERNSHIP & OTHER EXPERIENCES</h2></div>
+        <div class="grid">
+          <div class="item">
+            <h3>Freelance <span class="muted">(Present – 2025)</span></h3>
+            <ul>
+              <li>Web Development & Presentation Designer</li>
+              <li>Delivered responsive web apps, slide decks, docs and Canva designs for clients.</li>
+              <li>Focus on accessibility, performance and clean handoff.</li>
+            </ul>
+          </div>
+          <div class="item">
+            <h3>Internship – The Vintage Group <span class="muted">(Apr 2025 – Jul 2025)</span></h3>
+            <ul>
+              <li>Built interactive front-end interfaces for internal tools.</li>
+              <li>Explored Small Language Models (SLMs) for lightweight AI features.</li>
+              <li>Integrated AI-assisted workflows into web solutions.</li>
+            </ul>
+          </div>
+          <div class="item">
+            <h3>Embedded Systems Internship – ANCIT Consulting <span class="muted">(Feb 2024 – Apr 2024)</span></h3>
+            <ul>
+              <li>Arduino/STM32 prototypes using UART, I²C, GPIO, relays.</li>
+              <li>Authored project documentation and demos.</li>
+              <li>Project Link: <a href="#" class="btn" style="padding:4px 8px">Documentation</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills" class="reveal container">
+      <div class="card skills">
+        <div class="section-head"><h2>TECHNICAL SKILLS</h2></div>
+        <div class="grid">
+          <div class="item">
+            <div class="skill-badges">
+              <span class="skill">SDLC / STLC</span>
+              <span class="skill">Generative AI (LLM/SLM)</span>
+              <span class="skill">Embedded Systems</span>
+              <span class="skill">Linux</span>
+              <span class="skill">Frontend (HTML, CSS, JS)</span>
+              <span class="skill">Manual Testing</span>
+              <span class="skill">Jira</span>
+              <span class="skill">UI / UX</span>
+              <span class="skill">Git / GitHub</span>
+              <span class="skill">NLP</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" class="reveal container">
+      <div class="card projects">
+        <div class="section-head"><h2>PROJECT EXPERIENCE</h2></div>
+        <div class="filter" role="toolbar" aria-label="Project filters">
+          <button class="filter-btn" data-filter="all" aria-pressed="true">All</button>
+          <button class="filter-btn" data-filter="web">Web</button>
+          <button class="filter-btn" data-filter="ai">AI/ML</button>
+          <button class="filter-btn" data-filter="embedded">Embedded</button>
+        </div>
+        <div class="project-grid" id="projectGrid">
+          <!-- Car Parking -->
+          <article class="project-card" data-tags="ai web">
+            <div class="project-thumb">
+              <img src="https://images.unsplash.com/photo-1551836022-4c4c79ecde51?q=80&w=1200&auto=format&fit=crop" alt="Parking slots visualization" loading="lazy">
+            </div>
+            <div class="project-body">
+              <span class="pill">AI</span>
+              <span class="pill">Web</span>
+              <h3>AI-Enabled Car Parking System & Web Interface</h3>
+              <p>Python, OpenCV, and IBM tools for real-time parking space detection with a web UI.</p>
+              <div class="project-links">
+                <a class="btn" href="https://github.com/Umaiorubagan08/AI_Car_Parking_Project" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i>Repo</a>
+              </div>
+            </div>
+          </article>
+          <!-- Web Projects -->
+          <article class="project-card" data-tags="web">
+            <div class="project-thumb">
+              <img src="https://images.unsplash.com/photo-1522542550221-31fd19575a2d?q=80&w=1200&auto=format&fit=crop" alt="Responsive website layouts" loading="lazy">
+            </div>
+            <div class="project-body">
+              <span class="pill">Web</span>
+              <h3>Responsive Web Projects</h3>
+              <p>Restaurant site, education platform, and app UIs with a11y and performance focus.</p>
+              <div class="project-links">
+                <a class="btn" href="https://github.com/Umaiorubagan08?tab=repositories" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i>Repo</a>
+              </div>
+            </div>
+          </article>
+          <!-- SLM Chatbot -->
+          <article class="project-card" data-tags="ai web">
+            <div class="project-thumb">
+              <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1200&auto=format&fit=crop" alt="Chatbot interface" loading="lazy">
+            </div>
+            <div class="project-body">
+              <span class="pill">AI</span>
+              <span class="pill">Web</span>
+              <h3>SLM Chatbot & Interface (2025)</h3>
+              <p>Interactive chatbot front-end powered by a Small Language Model for fast, lightweight UX.</p>
+               <div class="project-links">
+                <a class="btn" href="https://github.com/Umaiorubagan08/original_vintage_customer_page" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i>Repo</a>
+              </div>
+            </div>
+          </article>
+          <!-- Street Lights -->
+          <article class="project-card" data-tags="embedded">
+            <div class="project-thumb">
+              <img src="./ES 1 image.jpg" alt="Streetlight at night" loading="lazy">
+            </div>
+            <div class="project-body">
+              <span class="pill">Embedded</span>
+              <h3>Automatic Fault Detection in Street Lights</h3>
+              <p>Arduino UNO + sensors system to detect and report faulty streetlights.</p>
+              <div class="project-links">
+                <a class="btn" href="https://github.com/Umaiorubagan08/Automatic-Fault-Detection-in-Street-Lights" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i>Repo</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Certificates -->
+    <section id="certs" class="reveal container">
+      <div class="card">
+        <div class="section-head"><h2>CERTIFICATES & COURSEWORK</h2></div>
+        <div class="grid">
+          <div class="item">Introduction to Generative AI – Google <span class="muted">(Apr 2025)</span></div>
+          <div class="item">Get Started with Jira – Coursera <span class="muted">(Oct 2025)</span></div>
+          <div class="item">API Testing a real web application via Postman – Coursera Project Network <span class="muted">(Mar 2025)</span></div>
+          <div class="item">Meta Front-End Developer Certificate – Meta <span class="muted">(Dec 2024)</span></div>
+          <div class="item">Principles of UX / UI Design – Meta <span class="muted">(Dec 2024)</span></div>
+          <div class="item">HTML & CSS Course – HackerRank | LetsUpgrade Bootcamp <span class="muted">(Apr 2024)</span></div>
+          <div class="item">Introduction to Software Engineering – IBM <span class="muted">(Sep 2024)</span></div>
+          <div class="item">Basic Machine Learning Certificate – IBM <span class="muted">(Nov 2023)</span></div>
+          <div class="item">AI-Enabled Car Parking System Using OpenCV – IBM <span class="muted">(Oct 2023)</span></div>
+          <div class="item">Networking and Web Technology – Infosys <span class="muted">(Nov 2022)</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact & Soft skills -->
+    <section id="contact" class="reveal container">
+      <div class="card">
+        <div class="section-head"><h2>CONTACT & SOFT SKILLS</h2></div>
+        <div class="grid">
+          <div class="item">
+            <h3>Soft Skills</h3>
+            <div class="skill-badges">
+              <span class="skill">Communication</span>
+              <span class="skill">Interpersonal Skills</span>
+              <span class="skill">Teamwork</span>
+              <span class="skill">Time Management</span>
+              <span class="skill">Team Player</span>
+            </div>
+          </div>
+          <div class="item">
+            <h3>Software Tools</h3>
+            <p class="muted">Linux, MS Office, Replit, Hugging Face, n8n (Basic), Zapier, Jira, Bitbucket, Git & GitHub, VS Code, Insomnia, Notion, Figma, Canva, Postman, Google Sheets, Google Colab, UiPath</p>
+          </div>
+          <div class="item">
+            <h3>Quick Contact</h3>
+            <form id="contactForm" class="card" style="padding:12px; background:transparent; border:none">
+              <label>
+                <span class="muted">Your Email</span>
+                <input name="email" type="email" required placeholder="you@example.com" style="width:100%; padding:10px 12px; border-radius:10px; border:1px solid var(--stroke); background:var(--surface); color:var(--text); margin-top:6px;">
+              </label>
+              <label style="display:block; margin-top:10px;">
+                <span class="muted">Message</span>
+                <textarea name="message" required rows="3" placeholder="Hi Umaiorubagan, I’d like to connect about…" style="width:100%; padding:10px 12px; border-radius:10px; border:1px solid var(--stroke); background:var(--surface); color:var(--text); margin-top:6px;"></textarea>
+              </label>
+              <div style="display:flex; gap:10px; margin-top:10px;">
+                <button class="btn" type="submit"><i class="fa-regular fa-paper-plane"></i>Send</button>
+                <button class="btn" type="reset">Clear</button>
+              </div>
+              <p id="formStatus" class="muted" style="margin-top:8px;" aria-live="polite"></p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="container">
+    <p>© <span id="year"></span> Umaiorubagan V. Tamil Nadu, India.</p>
+    <a class="btn top" href="#about" style="margin-top:10px"><i class="fa-solid fa-arrow-up"></i> Back to top</a>
+  </footer>
+
+  <!-- Assistant toggle -->
+  <button class="assistant-toggle" id="assistantToggle" aria-haspopup="dialog" aria-controls="assistant" aria-expanded="false" title="Ask about this portfolio">
+    <i class="fa-solid fa-robot"></i>
+  </button>
+
+  <!-- Assistant Panel -->
+  <section class="assistant-panel" id="assistant" role="dialog" aria-label="AI Assistant">
+    <div class="assistant-header">
+      <h3><i class="fa-solid fa-robot"></i> Portfolio Assistant</h3>
+      <div class="assistant-actions">
+        <button id="assistantSetKey" title="Set Gemini API Key"><i class="fa-solid fa-key"></i></button>
+        <button id="assistantClear" title="Clear chat"><i class="fa-solid fa-trash"></i></button>
+        <button id="assistantClose" title="Close"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+    </div>
+    <div class="assistant-messages" id="assistantMessages" aria-live="polite"></div>
+    <form class="assistant-input" id="assistantForm">
+      <label class="sr-only" for="assistantPrompt">Ask a question</label>
+      <textarea id="assistantPrompt" placeholder="Ask about my skills, projects, experience…" required></textarea>
+      <button type="submit"><i class="fa-solid fa-paper-plane"></i></button>
+    </form>
+  </section>
+
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Umaiorubagan V",
+    "address": {"@type":"PostalAddress","addressCountry":"IN","addressRegion":"Tamil Nadu"},
+    "email": "mailto:umaiorubagan2002@gmail.com",
+    "url": "https://github.com/Umaiorubagan08",
+    "sameAs": [
+      "https://www.linkedin.com/in/umaiorubagan-v/",
+      "https://byte-stories.blogspot.com/"
+    ],
+    "alumniOf": {"@type":"CollegeOrUniversity","name":"Anna University"},
+    "knowsAbout": ["Frontend Development", "Artificial Intelligence", "UI/UX", "Manual Testing"]
+  }
+  </script>
+
+  <script>
+    // ===== Utilities =====
+    const qs = (sel, el=document) => el.querySelector(sel);
+    const qsa = (sel, el=document) => [...el.querySelectorAll(sel)];
+
+    // ===== Theme (system + saved) =====
+    const THEME_KEY = 'umai-theme';
+    const prefersLight = window.matchMedia('(prefers-color-scheme: light)');
+    const applyTheme = t => {
+      document.documentElement.setAttribute('data-theme', t);
+      qs('meta[name="theme-color"]').setAttribute('content', t==='light' ? '#ffffff' : '#0b0d10');
+      qs('#themeBtn i').className = t==='light' ? 'fa-solid fa-moon' : 'fa-solid fa-sun';
+      localStorage.setItem(THEME_KEY, t);
+    };
+    const savedTheme = localStorage.getItem(THEME_KEY);
+    applyTheme(savedTheme || (prefersLight.matches ? 'light' : 'dark'));
+    prefersLight.addEventListener('change', e => { if(!savedTheme) applyTheme(e.matches ? 'light' : 'dark'); });
+    qs('#themeBtn').addEventListener('click', () => applyTheme(document.documentElement.getAttribute('data-theme')==='light' ? 'dark' : 'light'));
+
+    // ===== Mobile menu =====
+    qs('#menuBtn').addEventListener('click', () => {
+      const nav = qs('#navLinks');
+      nav.classList.toggle('open');
+      const open = nav.classList.contains('open');
+      qs('#menuBtn').setAttribute('aria-expanded', String(open));
+    });
+    qsa('.nav-links a').forEach(a=>a.addEventListener('click',()=>qs('#navLinks').classList.remove('open')));
+
+    // ===== Scroll reveal =====
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('show'); io.unobserve(e.target); } });
+    }, { threshold: 0.2 });
+    qsa('.reveal').forEach(el => io.observe(el));
+
+    // ===== Scroll spy =====
+    const spy = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        const id = e.target.getAttribute('id');
+        const link = qs(`.nav-links a[href="#${id}"]`);
+        if (link) link.setAttribute('aria-current', e.isIntersecting ? 'true' : 'false');
+      });
+    }, { rootMargin: '-30% 0px -60% 0px' });
+    qsa('main section, header.hero').forEach(el => spy.observe(el));
+
+    // ===== Scroll progress =====
+    const progress = qs('#progress');
+    const onScroll = () => {
+      const s = window.scrollY;
+      const h = document.documentElement.scrollHeight - window.innerHeight;
+      const p = Math.max(0, Math.min(1, s / h));
+      progress.style.transform = `scaleX(${p})`;
+    };
+    document.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    // ===== Copy email =====
+    qs('#copyEmail').addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText('umaiorubagan2002@gmail.com');
+        qs('#copyEmail').innerHTML = '<i class="fa-solid fa-check"></i>Copied';
+        setTimeout(()=> qs('#copyEmail').innerHTML = '<i class="fa-regular fa-copy"></i>Copy Email', 1200);
+      } catch(err) { alert('Could not copy.'); }
+    });
+
+    // ===== Resume (placeholder) =====
+    // If you have a PDF, place it in the same folder and set the href:
+    // qs('#downloadResume').setAttribute('href', './UmaiorubaganV_Resume.pdf');
+
+    // ===== Project filter =====
+    const setFilter = (tag) => {
+      qsa('.filter-btn').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.filter===tag)));
+      qsa('.project-card').forEach(card => {
+        const show = tag==='all' || card.dataset.tags.includes(tag);
+        card.style.display = show ? '' : 'none';
+      });
+    };
+    qsa('.filter-btn').forEach(b => b.addEventListener('click', () => setFilter(b.dataset.filter)));
+
+    // ===== Contact form (mailto) =====
+    qs('#contactForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const data = new FormData(e.currentTarget);
+      const email = data.get('email');
+      const message = data.get('message');
+      const mailto = `mailto:umaiorubagan2002@gmail.com?subject=Portfolio%20Contact%20from%20${encodeURIComponent(email)}&body=${encodeURIComponent(message)}`;
+      window.location.href = mailto;
+      qs('#formStatus').textContent = 'Opening your email app…';
+    });
+
+    // ===== Year =====
+    qs('#year').textContent = new Date().getFullYear();
+
+    // ===== AI Assistant (Gemini) =====
+    const GEMINI_ENDPOINT = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent';
+
+    const assistantEl = qs('#assistant');
+    const assistantToggle = qs('#assistantToggle');
+    const assistantClose = qs('#assistantClose');
+    const assistantSetKey = qs('#assistantSetKey');
+    const assistantClear = qs('#assistantClear');
+    const assistantForm = qs('#assistantForm');
+    const assistantPrompt = qs('#assistantPrompt');
+    const assistantMessages = qs('#assistantMessages');
+
+    let chatHistory = []; // for multi-turn context with Gemini
+
+    const getApiKey = async () => {
+      let key = localStorage.getItem('GEMINI_API_KEY');
+      if (!key) {
+        key = prompt('Enter your Gemini API key (stored locally)');
+        if (key) localStorage.setItem('GEMINI_API_KEY', key.trim());
+      }
+      return key?.trim();
+    };
+
+    const setApiKey = async () => {
+      const input = prompt('Set / replace your Gemini API key');
+      if (input) localStorage.setItem('GEMINI_API_KEY', input.trim());
+    };
+
+    const toggleAssistant = (open) => {
+      const isOpen = open ?? !assistantEl.classList.contains('open');
+      assistantEl.classList.toggle('open', isOpen);
+      assistantToggle.setAttribute('aria-expanded', String(isOpen));
+      if (isOpen) assistantPrompt.focus();
+    };
+
+    assistantToggle.addEventListener('click', () => toggleAssistant());
+    assistantClose.addEventListener('click', () => toggleAssistant(false));
+    assistantSetKey.addEventListener('click', setApiKey);
+    assistantClear.addEventListener('click', () => { chatHistory = []; assistantMessages.innerHTML = ''; });
+
+    const elFromHTML = (html) => {
+      const t = document.createElement('template');
+      t.innerHTML = html.trim();
+      return t.content.firstElementChild;
+    };
+
+    const pushMessage = (role, text) => {
+      const icon = role === 'user' ? '<i class="fa-solid fa-user"></i>' : '<i class="fa-solid fa-robot"></i>';
+      const el = elFromHTML(`<div class="msg ${role}"><small>${icon} ${role === 'user' ? 'You' : 'Assistant'}</small><div>${text.replace(/\n/g,'<br>')}</div></div>`);
+      assistantMessages.appendChild(el);
+      assistantMessages.scrollTop = assistantMessages.scrollHeight;
+    };
+
+    const collectPortfolioContext = () => {
+      // Grab clean text from key sections to ground answers
+      const pick = (sel) => (qs(sel)?.innerText || '').replace(/\s+\n/g,'\n').replace(/[\t ]+/g,' ').trim();
+      const extractProjects = () => {
+        return qsa('.project-card').map(card => ({
+          title: card.querySelector('h3')?.innerText?.trim(),
+          tags: card.dataset.tags,
+          summary: card.querySelector('p')?.innerText?.trim(),
+          links: qsa('a', card).map(a => ({text:a.innerText.trim(), href:a.href}))
+        }));
+      };
+      const data = {
+        name: 'Umaiorubagan V',
+        headline: pick('.headline p'),
+        focus: qsa('.chips .chip').map(x=>x.innerText.trim()),
+        contacts: qsa('.contact-row a').map(a => ({text:a.innerText.trim(), href:a.href})),
+        education: pick('#education .card'),
+        experience: pick('#experience .card'),
+        skills: qsa('#skills .skill-badges .skill').map(s=>s.innerText.trim()),
+        projects: extractProjects(),
+        certificates: pick('#certs .card'),
+        tools: pick('#contact .item:nth-child(2) .muted'),
+        languages: 'English, Tamil'
+      };
+      let text = `You are an AI assistant for the portfolio website of ${data.name}.
+Only use the following on-page context to answer. If something is not in the context, say you don't have that information on this page.
+Be concise, friendly, and factual. When helpful, point to a relevant section name (e.g., “see Projects”).\n\n=== CONTEXT START ===\n`;
+      text += JSON.stringify(data, null, 2);
+      text += `\n=== CONTEXT END ===`;
+      return text;
+    };
+
+    const askGemini = async (prompt) => {
+      const apiKey = await getApiKey();
+      if (!apiKey) throw new Error('Missing API key. Click the key icon to set it.');
+
+      const context = collectPortfolioContext();
+
+      // Build request contents with history
+      const contents = [];
+      // Re-inject grounding context each turn so answers remain on-page
+      contents.push({ role: 'user', parts: [{ text: context }] });
+      for (const h of chatHistory) contents.push(h);
+      contents.push({ role: 'user', parts: [{ text: prompt }] });
+
+      const res = await fetch(`${GEMINI_ENDPOINT}?key=${encodeURIComponent(apiKey)}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ contents })
+      });
+
+      if (!res.ok) {
+        const errText = await res.text();
+        throw new Error(`Gemini error ${res.status}: ${errText}`);
+      }
+
+      const data = await res.json();
+      const text = data?.candidates?.[0]?.content?.parts?.map(p=>p.text).join('\n').trim();
+      if (!text) throw new Error('No response from model.');
+      // Save last turn into history as model reply
+      chatHistory.push({ role: 'user', parts: [{ text: prompt }] });
+      chatHistory.push({ role: 'model', parts: [{ text }] });
+      return text;
+    };
+
+    assistantForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const prompt = assistantPrompt.value.trim();
+      if (!prompt) return;
+      assistantPrompt.value = '';
+      pushMessage('user', prompt);
+      const thinking = elFromHTML('<div class="msg bot"><small><i class="fa-solid fa-robot"></i> Assistant</small><div>Thinking…</div></div>');
+      assistantMessages.appendChild(thinking);
+      assistantMessages.scrollTop = assistantMessages.scrollHeight;
+      try {
+        const reply = await askGemini(prompt);
+        thinking.remove();
+        pushMessage('bot', reply);
+      } catch (err) {
+        thinking.remove();
+        pushMessage('bot', (err?.message || 'Something went wrong. Please try again.'));
+      }
+    });
+
+    // Open assistant with a helpful intro message
+    const intro = `Hi! I can answer questions about Umaiorubagan's skills, projects, experience and contact info — all grounded in this page. Try: \n• What projects has Umaiorubagan built?\n• What are the main technical skills?\n• How can I reach out?`;
+    pushMessage('bot', intro);
+  </script>
+</body>
+</html>
